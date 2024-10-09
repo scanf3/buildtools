@@ -1,0 +1,39 @@
+name: download cipd packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'tag for releases'
+        required: true
+        type: string
+
+jobs:
+  download:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: prepare cipd
+        run: |
+          git clone https://chromium.googlesource.com/chromium/tools/depot_tools
+          echo "$GITHUB_WORKSPACE/depot_tools" >> $GITHUB_PATH
+
+      - name: run cipd ensure
+        run: cipd ensure -ensure-file cipd.ensure -root .
+      
+      - name: compress
+        run: python3 -u make_archive.py
+      
+      - name: push to release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ github.event.inputs.tag }}
+          bodyFile: "hash.md"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: "buildtools-*.tar.gz"
