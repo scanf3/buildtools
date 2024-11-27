@@ -12,3 +12,6 @@ gn/gn/linux-arm64 git_revision:cc28efe62ef0c2fb32455f414a29c4a55bb7fbc4
 
 @Subdir buildtools/gn/linux-x86_64
 gn/gn/linux-amd64 git_revision:cc28efe62ef0c2fb32455f414a29c4a55bb7fbc4
+
+@Subdir buildtools/gn/windows-x86_64
+gn/gn/windows-amd64 git_revision:cc28efe62ef0c2fb32455f414a29c4a55bb7fbc4
