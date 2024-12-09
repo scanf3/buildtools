@@ -14,6 +14,7 @@ on:
       custom_script:
         description: 'use the custom script after downloading cipd package by ensure files'
         type: string
+        default: ''
 
 jobs:
   download:
@@ -39,7 +40,7 @@ jobs:
         run: python3 publish_helper.py --sha256-list
 
       - name: run custom script
-        if: ${{ github.event.inputs.custom_script }}
+        if: ${{ github.event.inputs.custom_script != ''}}
         run: |
           bash ${{ github.event.inputs.custom_script }}
 
