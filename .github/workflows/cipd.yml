@@ -11,6 +11,9 @@ on:
         description: 'the target cipd ensure file(s), split by comma. (e.g. gn.ensure)'
         required: true
         type: string
+      custom_script:
+        description: 'use the custom script after downloading cipd package by ensure files'
+        type: string
 
 jobs:
   download:
@@ -34,6 +37,11 @@ jobs:
 
       - name: generate sha256 list
         run: python3 publish_helper.py --sha256-list
+
+      - name: run custom script
+        if: ${{ github.event.inputs.custom_script }}
+        run: |
+          bash ${{ github.event.inputs.custom_script }}
 
       - name: push to release
         uses: ncipollo/release-action@v1
