@@ -7,6 +7,9 @@ root_dir=$PWD
 cat /dev/null > hash.md
 
 # Traverse all tar.gz under llvm directory 
+echo "111"
+pwd
+ls
 for file in buildtools-*.tar.gz;do
     # llvm files already exists
     raw_folder=$(echo $file | sed 's/.tar.gz//g')
@@ -15,6 +18,10 @@ for file in buildtools-*.tar.gz;do
     clang_format_dir=$(echo $raw_folder | sed 's/llvm/clang-format/g')
     mkdir $clang_format_dir
     subdir=$(echo $file | awk -F"-" '{print $(NF-1)"-"$NF}')
+    echo "222"
+    ls
+    echo $root_dir/buildtools
+    echo $root_dir/buildtools/llvm
     cp $root_dir/buildtools/llvm/$subdir/bin/clang-format $clang_format_dir/
     
     # package the artifacts
