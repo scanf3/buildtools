@@ -20,8 +20,9 @@ for file in buildtools-*.tar.gz;do
     subdir=$(echo $file | awk -F"-" '{print $(NF-1)"-"$NF}')
     echo "222"
     ls
-    echo $root_dir/buildtools
-    echo $root_dir/buildtools/llvm
+    ls $root_dir/buildtools
+    echo "333"
+    ls $root_dir/buildtools/llvm
     cp $root_dir/buildtools/llvm/$subdir/bin/clang-format $clang_format_dir/
     
     # package the artifacts
